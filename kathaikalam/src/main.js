@@ -18,7 +18,7 @@ const state = {
     era: 'ancient', biome: 'coastal',
   },
   features: { shadow: true, torch: true, glow: true, godray: true, cycle: true },
-  timeT: 0.75,
+  timeT: 0.35,  // start at morning — sun visible
   cycleSpeed: 0.00015,
 }
 
@@ -83,6 +83,8 @@ async function buildWorld() {
     oct: p.oct,
     rivers: p.rivers,
     scale: biomeCfg.scale,
+  // Apply time immediately after world builds
+  applyTime(state.timeT, lights, renderer, scene, state.features)
   }
 
   setOverlaySub('Computing heightmap')
@@ -188,6 +190,7 @@ function animate() {
   }
 
   // Apply time
+  if (frame === 1) applyTime(state.timeT, lights, renderer, scene, state.features)
   const timeResult = applyTime(state.timeT, lights, renderer, scene, state.features)
   document.getElementById('time-label').textContent = timeResult.label
   document.getElementById('hud-time').textContent = timeResult.timeOfDay
