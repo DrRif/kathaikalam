@@ -54,5 +54,5 @@ export const SURPRISE_PROMPTS = [
   'Post-apocalyptic survivor camp year 47. Scavenged shelters. Crops failing. Raiders seen on the ridge.',
   '1924 noir port city. Corrupt police chief. Jazz club. A body found in the harbour. Everyone has a secret.',
   'Ancient Egyptian delta 1350 BCE. Pharaoh building a secret tomb. River flooding. A conspiracy forming.',
-  'Mongolian steppe 1220 CE. A Khan's winter camp. Scouts report a walled city ahead. Ten days until attack.',
+  `Mongolian steppe 1220 CE. A Khan's winter camp. Scouts report a walled city ahead. Ten days until attack.`,
 ]
