@@ -1,0 +1,17 @@
+{
+  "name": "kathaikalam",
+  "version": "0.1.0",
+  "description": "Kathai Kalam — AI World Builder",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.165.0"
+  },
+  "devDependencies": {
+    "vite": "^5.3.0"
+  }
+}

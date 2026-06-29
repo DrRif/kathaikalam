@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kathai Kalam — World Builder</title>
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/ui/styles.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="logo">Kathai <span>Kalam</span></div>
+      <div class="badge">World Builder</div>
+      <div class="sp"></div>
+      <span class="tstat">Era: <span id="tb-era">—</span></span>
+      <span class="tstat">Structures: <span id="tb-structs">0</span></span>
+      <span class="tstat">FPS: <span id="tb-fps">—</span></span>
+      <button class="tbtn" id="btn-shadow">🌑 Shadows</button>
+      <button class="tbtn" id="btn-torch">🔥 Torches</button>
+      <button class="tbtn" id="btn-godray">☀️ Rays</button>
+      <button class="tbtn" id="btn-cycle">⏱ Cycle</button>
+      <button class="tbtn" id="btn-auto">🔄 Auto</button>
+      <button class="tbtn-p" id="btn-export">📄 Export</button>
+    </div>
+
+    <div class="main">
+
+      <!-- LEFT: CONTROLS -->
+      <div class="ctrl-panel" id="ctrlPanel">
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">Era & Biome</div>
+          <select id="era-select">
+            <option value="ancient">⚔️ Ancient Tamil Kingdom</option>
+            <option value="medieval">🏰 Medieval European</option>
+            <option value="feudal">⛩️ Feudal Japanese</option>
+            <option value="viking">🪓 Viking Norse</option>
+            <option value="fantasy">🔮 Fantasy Realm</option>
+            <option value="scifi">🚀 Sci-Fi Colony</option>
+            <option value="apocalypse">☢️ Post-Apocalypse</option>
+          </select>
+          <select id="biome-select">
+            <option value="coastal">🌊 Coastal</option>
+            <option value="highland">🏔️ Highland</option>
+            <option value="forest">🌿 Forest</option>
+            <option value="desert">🏜️ Desert</option>
+            <option value="arctic">❄️ Arctic</option>
+          </select>
+        </div>
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">AI World Generation</div>
+          <textarea id="world-prompt" placeholder="Describe your world...&#10;Tamil coastal kingdom 300 BCE, warrior queen, monsoon season..."></textarea>
+          <button class="btn-gen" id="btn-gen-world">🌍 Generate World</button>
+          <button class="btn-secondary" id="btn-surprise">🎲 Surprise Me</button>
+        </div>
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">Terrain</div>
+          <div class="ctrl-row"><span class="ctrl-label">Seed</span><span class="ctrl-val" id="v-seed">42</span></div>
+          <input type="range" id="s-seed" min="1" max="999" step="1" value="42">
+          <div class="ctrl-row"><span class="ctrl-label">Height</span><span class="ctrl-val" id="v-height">14</span></div>
+          <input type="range" id="s-height" min="4" max="40" step="1" value="14">
+          <div class="ctrl-row"><span class="ctrl-label">Sea Level</span><span class="ctrl-val" id="v-sea">0.32</span></div>
+          <input type="range" id="s-sea" min="0.05" max="0.65" step="0.01" value="0.32">
+          <div class="ctrl-row"><span class="ctrl-label">Rivers</span><span class="ctrl-val" id="v-rivers">4</span></div>
+          <input type="range" id="s-rivers" min="0" max="10" step="1" value="4">
+          <button class="btn-secondary" id="btn-regen">🎲 New Seed</button>
+        </div>
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">Structures</div>
+          <div class="ctrl-row"><span class="ctrl-label">Count</span><span class="ctrl-val" id="v-settle">12</span></div>
+          <input type="range" id="s-settle" min="2" max="30" step="1" value="12">
+          <div class="ctrl-row"><span class="ctrl-label">Spread</span><span class="ctrl-val" id="v-scatter">18</span></div>
+          <input type="range" id="s-scatter" min="5" max="40" step="1" value="18">
+          <div class="ctrl-row"><span class="ctrl-label">Scale</span><span class="ctrl-val" id="v-hscale">1.0</span></div>
+          <input type="range" id="s-hscale" min="0.4" max="2.5" step="0.1" value="1.0">
+          <button class="btn-secondary" id="btn-rebuild-structs">🏗 Rebuild</button>
+        </div>
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">Nature</div>
+          <div class="ctrl-row"><span class="ctrl-label">Trees</span><span class="ctrl-val" id="v-trees">30</span></div>
+          <input type="range" id="s-trees" min="0" max="80" step="5" value="30">
+          <div class="ctrl-row"><span class="ctrl-label">Rocks</span><span class="ctrl-val" id="v-rocks">10</span></div>
+          <input type="range" id="s-rocks" min="0" max="30" step="1" value="10">
+        </div>
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">Lighting</div>
+          <div class="ctrl-row"><span class="ctrl-label">Torches</span><span class="ctrl-val" id="v-torches">8</span></div>
+          <input type="range" id="s-torches" min="0" max="24" step="1" value="8">
+          <div class="ctrl-row"><span class="ctrl-label">Shadow Soft</span><span class="ctrl-val" id="v-shadsoft">2</span></div>
+          <input type="range" id="s-shadsoft" min="0.5" max="8" step="0.5" value="2">
+          <div class="ctrl-row"><span class="ctrl-label">Fog</span><span class="ctrl-val" id="v-fog">0.007</span></div>
+          <input type="range" id="s-fog" min="0.001" max="0.04" step="0.001" value="0.007">
+        </div>
+
+        <div class="ctrl-section">
+          <div class="ctrl-title">Stats</div>
+          <div class="stat-grid">
+            <div class="stat-item"><div class="stat-k">Structures</div><div class="stat-v" id="st-structs">0</div></div>
+            <div class="stat-item"><div class="stat-k">Trees</div><div class="stat-v" id="st-trees">0</div></div>
+            <div class="stat-item"><div class="stat-k">Lights</div><div class="stat-v" id="st-lights">0</div></div>
+            <div class="stat-item"><div class="stat-k">Tris</div><div class="stat-v" id="st-tris">0</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CENTER: 3D WORLD -->
+      <div class="world-view" id="worldView">
+        <canvas id="world-canvas"></canvas>
+
+        <!-- Generation overlay -->
+        <div class="gen-overlay" id="gen-overlay">
+          <div class="gen-ring"></div>
+          <div class="gen-txt" id="gen-txt">Building world...</div>
+          <div class="gen-sub" id="gen-sub">Initialising</div>
+        </div>
+
+        <!-- World title -->
+        <div class="world-hud" id="world-hud" style="opacity:0">
+          <div class="wh-label">Active World</div>
+          <div class="wh-name" id="wh-name">—</div>
+          <div class="wh-sub" id="wh-sub">—</div>
+        </div>
+
+        <!-- Top right info -->
+        <div class="info-hud">
+          Time: <span id="hud-time">Dusk</span><br>
+          Era: <span id="hud-era">—</span><br>
+          Biome: <span id="hud-biome">—</span>
+        </div>
+
+        <!-- God rays overlay -->
+        <canvas id="godray-canvas"></canvas>
+
+        <!-- Structure hover popup -->
+        <div class="struct-popup" id="struct-popup">
+          <div class="sp-icon" id="sp-icon">🏛️</div>
+          <div class="sp-name" id="sp-name">—</div>
+          <div class="sp-type" id="sp-type">—</div>
+          <div class="sp-lore" id="sp-lore">—</div>
+        </div>
+
+        <!-- Time scrubber -->
+        <div class="timebar">
+          <span>🌙</span>
+          <input type="range" id="time-slider" min="0" max="1" step="0.001" value="0.75">
+          <span>🌅</span>
+          <span class="time-label" id="time-label">18:00</span>
+        </div>
+
+        <!-- Camera controls -->
+        <div class="cam-controls">
+          <button class="cam-btn active" data-view="cin">🎬 Cinematic</button>
+          <button class="cam-btn" data-view="top">🗺 Top</button>
+          <button class="cam-btn" data-view="low">👁 Ground</button>
+          <button class="cam-btn" data-view="fly">🦅 Flyover</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
